@@ -1,0 +1,24 @@
+{
+  "name": "brew-timer",
+  "version": "1.0.0",
+  "description": "Simple niche Node + Express app with single-file backend and inline UI",
+  "homepage": "https://github.com/Prayas-35/fsp#readme",
+  "bugs": {
+    "url": "https://github.com/Prayas-35/fsp/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Prayas-35/fsp.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.2"
+  },
+  "devDependencies": {}
+}

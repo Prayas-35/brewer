@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pour-Over Brew Helper</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="card">
+      <h1>☕ Pour-Over Brew Helper</h1>
+      <p>Get water amount + brew time from coffee grams.</p>
+
+      <label for="grams">Coffee (grams)</label>
+      <input id="grams" type="number" min="1" placeholder="Example: 18" />
+
+      <button id="calculate">Calculate Brew Plan</button>
+
+      <section class="result" id="result">Enter coffee grams to get your brew plan.</section>
+      <small>Formula: 1:16 coffee-to-water ratio, 2m 30s base + 3s per gram.</small>
+    </main>
+
+    <script>
+      const gramsInput = document.getElementById("grams");
+      const result = document.getElementById("result");
+      const calculateBtn = document.getElementById("calculate");
+
+      calculateBtn.addEventListener("click", async () => {
+        const grams = Number(gramsInput.value);
+
+        if (!grams || grams <= 0) {
+          result.textContent = "Please enter a valid coffee amount in grams.";
+          return;
+        }
+
+        const response = await fetch("/api/brew-plan", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ grams })
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          result.textContent = data.error || "Something went wrong.";
+          return;
+        }
+
+        result.innerHTML =
+          "Water: <strong>" + data.waterMl + " ml</strong><br />" +
+          "Brew Time: <strong>" + data.brewTime + "</strong>";
+      });
+    </script>
+  </body>
+</html>
